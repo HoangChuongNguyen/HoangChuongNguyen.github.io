@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<script type="text/javascript"
+		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Joint Optimization of Neural Radiance Fields and Continuous Camera Motion from a Monocular Video</title>
+	<!-- <link rel="icon" type="image/x-icon" href="/imgs/nope1.png"> -->
+	<!-- Bootstrap core CSS -->
+
+	<!-- Custom styles for this template -->
+	<link href="css/academicons.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://nope-nerf.active.vision/dics.original.css">
+	<script src="https://nope-nerf.active.vision/dics.original.js"></script>
+	<link href="css/footer.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="src/original/dics.original.css">
+	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<script src="src/original/dics.original.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<!-- Custom fonts for this template -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script>
+		document.addEventListener('DOMContentLoaded', domReady);
+
+		function domReady() {
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[0],
+				textPosition: 'top'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[1],
+				hideTexts: true,
+				textPosition: 'center'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[2]
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[3],
+				linesOrientation: 'vertical',
+				textPosition: 'left',
+				arrayBackgroundColorText: ['#000000', '#FFFFFF'],
+				arrayColorText: ['#FFFFFF', '#000000'],
+				linesColor: 'rgb(0,0,0)'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[4],
+				linesOrientation: 'vertical',
+				textPosition: 'right'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[5],
+				textPosition: 'bottom'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[6],
+				filters: ['blur(3px)', 'grayscale(1)', 'sepia(1)', 'saturate(3)']
+			});
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[7],
+				rotate: '45deg'
+			});
+
+		}
+	</script>
+	<script type="text/javascript">
+		var x = 0;
+		var images = [
+			["imgs/ig_barf.png"
+				, "imgs/ig_nerfmm.png",
+				"imgs/ig_scnerf.png",
+				"imgs/ig_ours.png",
+				"imgs/pose_ig.png"],
+		];
+		function ChangeImage() {
+			x = Math.floor(Math.random() * images.length);
+			document.getElementById("img1").src = images[x];
+		}
+		function displayNextImages() {
+			x = (x === images.length - 1) ? 0 : x + 1;
+			document.getElementById("img1").src = images[x][0];
+			document.getElementById("img2").src = images[x][1];
+			document.getElementById("img3").src = images[x][2];
+			document.getElementById("img4").src = images[x][3];
+			document.getElementById("pose").src = images[x][4];
+		}
+
+		function displayPreviousImages() {
+			x = (x <= 0) ? images.length - 1 : x - 1;
+			document.getElementById("img1").src = images[x][0];
+			document.getElementById("img2").src = images[x][1];
+			document.getElementById("img3").src = images[x][2];
+			document.getElementById("img4").src = images[x][3];
+			document.getElementById("pose").src = images[x][4];
+		}
+		function ChangeImages() {
+			x = Math.floor(Math.random() * images.length);
+			document.getElementById("img1").src = images[x][0];
+			document.getElementById("img2").src = images[x][1];
+			document.getElementById("img3").src = images[x][2];
+			document.getElementById("img4").src = images[x][3];
+			document.getElementById("pose").src = images[x][4];
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<main role="main" class="container" , style="max-width: 900px;">
+		<h1 class="title is-3 publication-title">Joint Optimization of Neural Radiance Fields and Continuous Camera
+			Motion from a Monocular Video</h1>
+		<!-- &#x1F6AB &#129306 &#128581 &#128581;&#8205;&#9792;&#65039 &#x1F6AB-->
+		<div class="col text-center">
+			<p class="authors">
+				Hoang Chuong Nguyen<sup>1</sup>,
+				<a href="https://wei-mao-2019.github.io/home/"> Wei Mao</a>,
+				<a href="https://alvarezlopezjosem.github.io/"> Jose M. Alvarez</a><sup>2</sup>,
+				<a href="https://users.cecs.anu.edu.au/~mliu/"> Miaomiao Liu</a><sup>1</sup><br>
+				<sup>1</sup>Australian National University,
+				<sup>2</sup>NVIDIA<br>
+				CVPR 2025
+			</p>
+		</div>
+		<div class="col text-center" , style="padding: 20px 0px;">
+			<a class="btn btn-dark" ,
+				href="https://openaccess.thecvf.com/content/CVPR2025/papers/Nguyen_Joint_Optimization_of_Neural_Radiance_Fields_and_Continuous_Camera_Motion_CVPR_2025_paper.pdf"
+				role="button">Paper</a>
+			<!-- <a class="btn btn-dark" href="index.html#bibtex" role="button">Bibtex</a> -->
+			<a class="btn btn-dark" href="https://github.com/HoangChuongNguyen/cope-nerf" role="button">Code</a>
+			<!-- <button type="button" class="btn btn-dark" disabled>Code</button> -->
+		</div>
+		<div class="polaroid" style="padding-bottom: 40px">
+			<div style="padding: 0px 0px;" , class="center">
+				<div class="b-dics">
+					<img id="img3" src="imgs/ig_scnerf.png" alt="SC-NeRF">
+					<img id="img2" src="imgs/ig_nerfmm.png" alt="NeRFmm">
+					<img id="img1" src="imgs/ig_barf.png" alt="BARF">
+					<img id="img4" src="imgs/ig_ours.png" alt="Ours">
+				</div>
+			</div>
+
+			<div class="center" style="padding: 0px 0px;">
+				<img src="imgs/pose_ig.png" id="pose" alt="poses" style="width:1200px;">
+			</div>
+			<div style="padding: 0px 0px;">
+				<!-- <button type="button" class="btn btn-outline-dark" onclick="ChangeImages()">Change</button> -->
+				<div class="pos_left">
+					<button type="button" class="btn btn-outline-dark" onclick="displayPreviousImages()">&#10094
+						Previous</button>
+				</div>
+				<div class="pos_right">
+					<button type="button" class="btn btn-outline-dark" onclick="displayNextImages()">Next
+						&#10095</button>
+				</div>
+			</div>
+		</div>
+		<h2 class="title is-4">Abstract</h2>
+		<p>
+			Neural Radiance Fields (NeRF) has demonstrated its superior capability to represent 3D geometry but require
+			accurately precomputed camera poses during training.
+			To mitigate this requirement, existing methods jointly
+			optimize camera poses and NeRF often relying on good
+			pose initialisation or depth priors. However, these approaches struggle in challenging scenarios, such as
+			large rotations, as they map each camera to a world coordinate system. We propose a novel method that
+			eliminates prior dependencies by modeling continuous camera motions as time-dependent angular velocity and
+			velocity. Relative motions between cameras are learned
+			first via velocity integration, while camera poses can be
+			obtained by aggregating such relative motions up to a
+			world coordinate system defined at a single time step
+			within the video. Specifically, accurate continuous camera movements are learned through a time-dependent
+			NeRF, which captures local scene geometry and motion by training from neighboring frames for each time
+			step. The learned motions enable fine-tuning the NeRF
+			to represent the full scene geometry. Experiments on
+			Co3D and Scannet show our approach achieves superior camera pose and depth estimation and comparable
+			novel-view synthesis performance compared to stateof-the-art methods.
+		</p>
+		<h2 class="title is-4">Method Overview</h2>
+		<div style="padding: 20px 0px;" , class="center">
+			<img src="my_imgs/method.gif" alt="Model Overview" , class="center">
+		</div>
+		<!-- <h2 class="title is-4",  style="padding: 0px 0px;">Pose Estimation</h2>
+	<p>
+		We visualise the  <b style="color: #d62728">estimated pose trajectories </b> of each method against <b style="color: #2ca02c">ground truth trajectories</b>. We also visualised the relative rotation errors 
+		(<b><i>RPE<sub>r</sub></i></b>) for each frame in the image sequence as colour bars at the bottom, where the relative scaling of colour is shown on the right (in degrees).
+	 </p>
+	<div style="height:400px;overflow:scroll;padding: 0px 0px;">
+		<img src="imgs/pose_tanks.jpg" alt="poses"><br>
+		<img src="imgs/pose_scannet.jpg" alt="poses2"><br>
+	</div> -->
+
+
+		<h2 class="title is-4">Scene Geometry, Appearance Reconstruction and Camera Pose Estimation</h2>
+		<div class="row">
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/recon/bench.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/recon/skateboard.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/recon/hydrant.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/recon/plant.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+
+
+
+		<h2 class="title is-4">Novel View Rendering</h2>
+		<p>
+			We show novel views from a <b>Bezier curve</b> which is fitted to estimated camera poses.
+		</p>
+		<div class="row">
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/nvs/Ballroom.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/nvs/Ignatius.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/nvs/Family.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/nvs/Church.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/nvs/Francis.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div class="column">
+				<video class='center_video' controls autoplay muted loop>
+					<source src="my_videos/nvs/Museum.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+
+		<h2 class="title is-4">Full Video</h2>
+	<iframe  style='width:100%; height:500px;' src="https://www.youtube.com/embed/oZcMMpyfU1s?si=9d6HNYNEIT1nf-s7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		<h2 class="title is-4">BibTeX</h2>
+		<code class="codebox" id="bibtex"><pre>
+@InProceedings{Nguyen_2025_CVPR,
+	author    = {Nguyen, Hoang Chuong and Mao, Wei and Alvarez, Jose M. and Liu, Miaomiao},
+	title     = {Joint Optimization of Neural Radiance Fields and Continuous Camera Motion from a Monocular Video},
+	booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
+	month     = {June},
+	year      = {2025},
+	pages     = {11472-11481}
+}
+</main>
+</body>
+	
+</html>
