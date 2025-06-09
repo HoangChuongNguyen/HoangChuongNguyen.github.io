@@ -76,12 +76,30 @@
 	</script>
 	<script type="text/javascript">
 		var x = 0;
+		// var images = [
+		// 	["imgs/ig_barf.png"
+		// 		, "imgs/ig_nerfmm.png",
+		// 		"imgs/ig_scnerf.png",
+		// 		"imgs/ig_ours.png",
+		// 		// "imgs/pose_ig.png"
+		// 	],
+		// ];
 		var images = [
-			["imgs/ig_barf.png"
-				, "imgs/ig_nerfmm.png",
-				"imgs/ig_scnerf.png",
-				"imgs/ig_ours.png",
-				"imgs/pose_ig.png"],
+			["my_imgs/qualitative/Co3D/bench/0024/gs_stack.png", "my_imgs/qualitative/Co3D/bench/0024/nerfmm_stack.png", "my_imgs/qualitative/Co3D/bench/0024/nerf_stack.png", "my_imgs/qualitative/Co3D/bench/0024/my_stack.png"],
+			// ["my_imgs/qualitative/Co3D/hydrant/0024/gs_stack.png", "my_imgs/qualitative/Co3D/hydrant/0024/nerfmm_stack.png", "my_imgs/qualitative/Co3D/hydrant/0024/nerf_stack.png", "my_imgs/qualitative/Co3D/hydrant/0024/my_stack.png"],
+			// ["my_imgs/qualitative/Co3D/plant/0013/gs_stack.png", "my_imgs/qualitative/Co3D/plant/0013/nerfmm_stack.png", "my_imgs/qualitative/Co3D/plant/0013/nerf_stack.png", "my_imgs/qualitative/Co3D/plant/0013/my_stack.png"],
+			["my_imgs/qualitative/Co3D/skateboard/0001/gs_stack.png", "my_imgs/qualitative/Co3D/skateboard/0001/nerfmm_stack.png", "my_imgs/qualitative/Co3D/skateboard/0001/nerf_stack.png", "my_imgs/qualitative/Co3D/skateboard/0001/my_stack.png"],
+			// ["my_imgs/qualitative/Co3D/teddybear/0020/gs_stack.png", "my_imgs/qualitative/Co3D/teddybear/0020/nerfmm_stack.png", "my_imgs/qualitative/Co3D/teddybear/0020/nerf_stack.png", "my_imgs/qualitative/Co3D/teddybear/0020/my_stack.png"],
+			// ["my_imgs/qualitative/Scannet/scene0079_00/0010/gs_stack.png", "my_imgs/qualitative/Scannet/scene0079_00/0010/nerfmm_stack.png", "my_imgs/qualitative/Scannet/scene0079_00/0010/nerf_stack.png", "my_imgs/qualitative/Scannet/scene0079_00/0010/my_stack.png"],
+			// ["my_imgs/qualitative/Scannet/scene0301_00/0005/gs_stack.png", "my_imgs/qualitative/Scannet/scene0301_00/0005/nerfmm_stack.png", "my_imgs/qualitative/Scannet/scene0301_00/0005/nerf_stack.png", "my_imgs/qualitative/Scannet/scene0301_00/0005/my_stack.png"],
+			// ["my_imgs/qualitative/Scannet/scene0431_00/0000/gs_stack.png", "my_imgs/qualitative/Scannet/scene0431_00/0000/nerfmm_stack.png", "my_imgs/qualitative/Scannet/scene0431_00/0000/nerf_stack.png", "my_imgs/qualitative/Scannet/scene0431_00/0000/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Barn/0008/gs_stack.png", "my_imgs/qualitative/Tanks/Barn/0008/nerf_stack.png", "my_imgs/qualitative/Tanks/Barn/0008/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Barn/0010/gs_stack.png", "my_imgs/qualitative/Tanks/Barn/0010/nerf_stack.png", "my_imgs/qualitative/Tanks/Barn/0010/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Church/0049/gs_stack.png", "my_imgs/qualitative/Tanks/Church/0049/nerf_stack.png", "my_imgs/qualitative/Tanks/Church/0049/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Family/0099/gs_stack.png", "my_imgs/qualitative/Tanks/Family/0099/nerf_stack.png", "my_imgs/qualitative/Tanks/Family/0099/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Francis/0018/gs_stack.png", "my_imgs/qualitative/Tanks/Francis/0018/nerf_stack.png", "my_imgs/qualitative/Tanks/Francis/0018/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Museum/0010/gs_stack.png", "my_imgs/qualitative/Tanks/Museum/0010/nerf_stack.png", "my_imgs/qualitative/Tanks/Museum/0010/my_stack.png"],
+			// ["my_imgs/qualitative/Tanks/Museum/0011/gs_stack.png", "my_imgs/qualitative/Tanks/Museum/0011/nerf_stack.png", "my_imgs/qualitative/Tanks/Museum/0011/my_stack.png"],
 		];
 		function ChangeImage() {
 			x = Math.floor(Math.random() * images.length);
@@ -93,7 +111,7 @@
 			document.getElementById("img2").src = images[x][1];
 			document.getElementById("img3").src = images[x][2];
 			document.getElementById("img4").src = images[x][3];
-			document.getElementById("pose").src = images[x][4];
+			// document.getElementById("pose").src = images[x][4];
 		}
 
 		function displayPreviousImages() {
@@ -102,7 +120,7 @@
 			document.getElementById("img2").src = images[x][1];
 			document.getElementById("img3").src = images[x][2];
 			document.getElementById("img4").src = images[x][3];
-			document.getElementById("pose").src = images[x][4];
+			// document.getElementById("pose").src = images[x][4];
 		}
 		function ChangeImages() {
 			x = Math.floor(Math.random() * images.length);
@@ -110,7 +128,7 @@
 			document.getElementById("img2").src = images[x][1];
 			document.getElementById("img3").src = images[x][2];
 			document.getElementById("img4").src = images[x][3];
-			document.getElementById("pose").src = images[x][4];
+			// document.getElementById("pose").src = images[x][4];
 		}
 	</script>
 
@@ -144,16 +162,16 @@
 		<div class="polaroid" style="padding-bottom: 40px">
 			<div style="padding: 0px 0px;" , class="center">
 				<div class="b-dics">
-					<img id="img3" src="imgs/ig_scnerf.png" alt="SC-NeRF">
-					<img id="img2" src="imgs/ig_nerfmm.png" alt="NeRFmm">
-					<img id="img1" src="imgs/ig_barf.png" alt="BARF">
-					<img id="img4" src="imgs/ig_ours.png" alt="Ours">
+					<img id="img3" src="my_imgs/qualitative/Co3D/bench/0024/nerfmm_stack.png" alt="NeRFmm">
+					<img id="img2" src="my_imgs/qualitative/Co3D/bench/0024/nerf_stack.png" alt="NoPe-NeRF">
+					<img id="img1" src="my_imgs/qualitative/Co3D/bench/0024/gs_stack.png" alt="CF3DGS">
+					<img id="img4" src="my_imgs/qualitative/Co3D/bench/0024/my_stack.png" alt="Ours">
 				</div>
 			</div>
 
-			<div class="center" style="padding: 0px 0px;">
+			<!-- <div class="center" style="padding: 0px 0px;">
 				<img src="imgs/pose_ig.png" id="pose" alt="poses" style="width:1200px;">
-			</div>
+			</div> -->
 			<div style="padding: 0px 0px;">
 				<!-- <button type="button" class="btn btn-outline-dark" onclick="ChangeImages()">Change</button> -->
 				<div class="pos_left">
@@ -234,9 +252,9 @@
 
 
 		<h2 class="title is-4">Novel View Rendering</h2>
-		<p>
+		<!-- <p>
 			We show novel views from a <b>Bezier curve</b> which is fitted to estimated camera poses.
-		</p>
+		</p> -->
 		<div class="row">
 			<div class="column">
 				<video class='center_video' controls autoplay muted loop>
@@ -283,7 +301,10 @@
 		</div>
 
 		<h2 class="title is-4">Full Video</h2>
-	<iframe  style='width:100%; height:500px;' src="https://www.youtube.com/embed/oZcMMpyfU1s?si=9d6HNYNEIT1nf-s7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		<iframe style='width:100%; height:500px;' src="https://www.youtube.com/embed/oZcMMpyfU1s?si=9d6HNYNEIT1nf-s7"
+			title="YouTube video player" frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 		<h2 class="title is-4">BibTeX</h2>
 		<code class="codebox" id="bibtex"><pre>
 @InProceedings{Nguyen_2025_CVPR,
