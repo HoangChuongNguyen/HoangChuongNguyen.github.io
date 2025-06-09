@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://nope-nerf.active.vision/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<script src="./cope-nerf_files/MathJax.js" id=""></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Nope-NeRF</title>
+		<!-- <link rel="icon" type="image/x-icon" href="/imgs/nope1.png"> -->
+		<!-- Bootstrap core CSS -->
+		
+		<!-- Custom styles for this template -->
+		<link href="./cope-nerf_files/academicons.css" rel="stylesheet">
+		<link rel="stylesheet" href="./cope-nerf_files/dics.original.css">
+		<script src="./cope-nerf_files/dics.original.js"></script><script charset="utf-8" src="chrome-extension://oakbcaafbicdddpdlhbchhpblmhefngh/dist/ruffle.js?id=66054797187"></script>
+		<link href="./cope-nerf_files/footer.css" rel="stylesheet">
+		<link href="./cope-nerf_files/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="./cope-nerf_files/dics(1).original.css">
+		<link rel="stylesheet" href="./cope-nerf_files/bulma.min.css">
+    	<script src="./cope-nerf_files/dics(2).original.js"></script>
+		<link rel="stylesheet" href="./cope-nerf_files/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<!-- Custom fonts for this template -->
+		<link rel="stylesheet" href="./cope-nerf_files/font-awesome.min.css">
+		
+		<script>
+			document.addEventListener('DOMContentLoaded', domReady);
+	
+			function domReady() {
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[0],
+					textPosition: 'top'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[1],
+					hideTexts: true,
+					textPosition: 'center'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[2]
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[3],
+					linesOrientation: 'vertical',
+					textPosition: 'left',
+					arrayBackgroundColorText: ['#000000', '#FFFFFF'],
+					arrayColorText: ['#FFFFFF', '#000000'],
+					linesColor: 'rgb(0,0,0)'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[4],
+					linesOrientation: 'vertical',
+					textPosition: 'right'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[5],
+					textPosition: 'bottom'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[6],
+					filters: ['blur(3px)', 'grayscale(1)', 'sepia(1)', 'saturate(3)']
+				});
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[7],
+					rotate: '45deg'
+				});
+	
+			}
+		</script>
+		<script type="text/javascript">
+			var x = 0;
+			var images = [
+				["imgs/ig_barf.png"
+			, "imgs/ig_nerfmm.png",
+			"imgs/ig_scnerf.png",
+			"imgs/ig_ours.png",
+			"imgs/pose_ig.png"]
+			];
+			function ChangeImage() {
+				x = Math.floor(Math.random() * images.length);
+              	document.getElementById("img1").src = images[x];
+			}
+			function displayNextImages() {
+              	x = (x === images.length - 1) ? 0 : x + 1;
+              	document.getElementById("img1").src = images[x][0];
+				document.getElementById("img2").src = images[x][1];
+				document.getElementById("img3").src = images[x][2];
+				document.getElementById("img4").src = images[x][3];
+				document.getElementById("pose").src = images[x][4];
+          }
+
+			function displayPreviousImages() {
+				x = (x <= 0) ? images.length - 1 : x - 1;
+				document.getElementById("img1").src = images[x][0];
+				document.getElementById("img2").src = images[x][1];
+				document.getElementById("img3").src = images[x][2];
+				document.getElementById("img4").src = images[x][3];
+				document.getElementById("pose").src = images[x][4];
+			}
+			function ChangeImages() {
+				x = Math.floor(Math.random() * images.length);
+              	document.getElementById("img1").src = images[x][0];
+				document.getElementById("img2").src = images[x][1];
+				document.getElementById("img3").src = images[x][2];
+				document.getElementById("img4").src = images[x][3];
+				document.getElementById("pose").src = images[x][4];
+			}
+		</script>
+		
+	<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+<main role="main" class="container" ,="" style="max-width: 900px;">
+	    <h1 class="title is-3 publication-title">NoPe-NeRF: Optimising Neural Radiance Field with No Pose Prior</h1>
+	<!-- &#x1F6AB &#129306 &#128581 &#128581;&#8205;&#9792;&#65039 &#x1F6AB-->
+	<div class="col text-center">
+	    <p class="authors">
+		  Wenjing Bian,
+	      Zirui Wang, 
+	      <a href="https://likojack.github.io/kejieli/#/home">Kejie Li</a>,
+		  <a href="https://jwbian.net/">Jiawang Bian</a>,
+	      <a href="http://www.robots.ox.ac.uk/~victor/">Victor Adrian Prisacariu</a><br>
+	      <a href="http://active.vision/"> Active Vision Lab</a>,
+	      University of Oxford<br>
+		  CVPR 2023 (Highlight)
+	    </p>
+	</div>
+	<div class="col text-center" ,="" style="padding: 20px 0px;">
+	    <a class="btn btn-dark" ,="" href="https://arxiv.org/abs/2212.07388" role="button">Arxiv</a>
+		<a class="btn btn-dark" href="https://nope-nerf.active.vision/#bibtex" role="button">Bibtex</a>
+		<a class="btn btn-dark" href="https://github.com/ActiveVisionLab/nope-nerf/" role="button">Code</a>
+		<!-- <button type="button" class="btn btn-dark" disabled>Code</button> -->
+	</div>
+	<div class="polaroid" style="padding-bottom: 40px">
+		<div style="padding: 0px 0px;" ,="" class="center">
+			<div class="b-dics" style="height: 353.438px; opacity: 1;">
+				
+				
+				
+				
+			<div class="b-dics__section" data-function="b-dics__section" style="flex: 0 0 217.5px;"><div class="b-dics__image-container"><p class="b-dics__text">SC-NeRF</p><img id="img3" src="./cope-nerf_files/ig_scnerf.png" alt="SC-NeRF" class="b-dics__image" style="left: 0px;"></div><div class="b-dics__slider" style="left: 217.5px;"></div></div><div class="b-dics__section" data-function="b-dics__section" style="flex: 0 0 217.5px;"><div class="b-dics__image-container"><p class="b-dics__text">NeRFmm</p><img id="img2" src="./cope-nerf_files/ig_nerfmm.png" alt="NeRFmm" class="b-dics__image" style="left: -217.5px;"></div><div class="b-dics__slider" style="left: 435px;"></div></div><div class="b-dics__section" data-function="b-dics__section" style="flex: 0 0 217.5px;"><div class="b-dics__image-container"><p class="b-dics__text">BARF</p><img id="img1" src="./cope-nerf_files/ig_barf.png" alt="BARF" class="b-dics__image" style="left: -435px;"></div><div class="b-dics__slider" style="left: 652.5px;"></div></div><div class="b-dics__section" data-function="b-dics__section" style="flex: 0 0 217.5px;"><div class="b-dics__image-container"><p class="b-dics__text">Ours</p><img id="img4" src="./cope-nerf_files/ig_ours.png" alt="Ours" class="b-dics__image" style="left: -652.5px;"></div></div></div>		
+		</div>
+
+		<div class="center" style="padding: 0px 0px;">
+			<img src="./cope-nerf_files/pose_ig.png" id="pose" alt="poses" style="width:1200px;">
+		</div>
+		<div style="padding: 0px 0px;">
+		<!-- <button type="button" class="btn btn-outline-dark" onclick="ChangeImages()">Change</button> -->
+		<div class="pos_left">
+		<button type="button" class="btn btn-outline-dark" onclick="displayPreviousImages()">❮ Previous</button>
+		</div>
+		<div class="pos_right">
+		<button type="button" class="btn btn-outline-dark" onclick="displayNextImages()">Next ❯</button>
+		</div>
+	</div>
+	</div>
+	<h2 class="title is-4">Abstract</h2>
+	  <p>
+	    Training a Neural Radiance Field (NeRF) without pre-computed camera poses is challenging. 
+		Recent advances in this direction demonstrate the possibility of jointly optimising a NeRF 
+		and camera poses in forward-facing scenes. However, these methods still face difficulties
+		 during dramatic camera movement. We tackle this challenging problem by incorporating undistorted 
+		 monocular depth priors. These priors are generated by correcting scale and shift parameters during 
+		 training, with which we are then able to constrain the relative poses between consecutive frames. 
+		 This constraint is achieved using our proposed novel loss functions. Experiments on real-world indoor 
+		 and outdoor scenes show that our method can handle challenging camera trajectories and outperforms 
+		 existing methods in terms of novel view rendering quality and pose estimation accuracy.
+	  </p>
+	<h2 class="title is-4">Method Overview</h2>
+	<div style="padding: 20px 0px;" ,="" class="center">
+	<img src="./cope-nerf_files/model.gif" alt="Model Overview" ,="" class="center">
+	</div>
+	<h2 class="title is-4" ,="" style="padding: 0px 0px;">Pose Estimation</h2>
+	<p>
+		We visualise the  <b style="color: #d62728">estimated pose trajectories </b> of each method against <b style="color: #2ca02c">ground truth trajectories</b>. We also visualised the relative rotation errors 
+		(<b><i>RPE<sub>r</sub></i></b>) for each frame in the image sequence as colour bars at the bottom, where the relative scaling of colour is shown on the right (in degrees).
+	 </p>
+	<div style="height:400px;overflow:scroll;padding: 0px 0px;">
+		<img src="./cope-nerf_files/pose_tanks.jpg" alt="poses"><br>
+		<img src="./cope-nerf_files/pose_scannet.jpg" alt="poses2"><br>
+	</div>
+	<h2 class="title is-4">Novel View Rendering</h2>
+	 <p>
+		We show novel views from a <b>Bezier curve</b> which is fitted to estimated camera poses.
+	 </p>
+	 <div class="row">
+		<div class="column">
+			<video class="center_video" controls="" autoplay="" muted="" loop="">
+			<source src="video/v1.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+		</div>
+		<div class="column">
+			<video class="center_video" controls="" autoplay="" muted="" loop="">
+			<source src="video/v2.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video></div>
+	</div>
+	  
+	  
+	
+	  <p style="padding: 20px 0px;">
+		We show novel views from a  <b>spiral curve</b> which is fitted to estimated camera poses.
+	 </p>
+	 <div class="row">
+		<div class="column">
+			<video class="center_video" controls="" autoplay="" muted="" loop="">
+			<source src="video/v3.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+		</div>
+		<div class="column">
+		<video class="center_video" controls="" autoplay="" muted="" loop="">
+			<source src="video/v4.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+		</video>
+		</div>
+	</div>
+	<h2 class="title is-4">Full Video</h2>
+	<iframe style="width:100%; height:500px;" src="./cope-nerf_files/DVFbxol_mdA.html" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+	encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" data-ruffle-polyfilled=""></iframe>
+<h2 class="title is-4">BibTeX</h2>
+<code class="codebox" id="bibtex"><pre>@inproceedings{bian2022nopenerf,
+	author    = {Wenjing Bian and Zirui Wang and Kejie Li and Jiawang Bian and Victor Adrian Prisacariu},
+	title     = {NoPe-NeRF: Optimising Neural Radiance Field with No Pose Prior},
+	journal   = {CVPR},
+	year      = {2023}
+	}
+   
+</pre></code></main><code class="codebox" id="bibtex">
+
+	
+
+</code></body></html>
