@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<script type="text/javascript"
+		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>IBGS: Image-Based Gaussian Splatting</title>
+	<!-- <link rel="icon" type="image/x-icon" href="/imgs/nope1.png"> -->
+	<!-- Bootstrap core CSS -->
+
+	<!-- Custom styles for this template -->
+	<link href="ibgs_files/css/academicons.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://nope-nerf.active.vision/dics.original.css">
+	<script src="https://nope-nerf.active.vision/dics.original.js"></script>
+	<link href="ibgs_files/css/footer.css" rel="stylesheet">
+	<link href="ibgs_files/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="ibgs_files/src/original/dics.original.css">
+	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<script src="ibgs_files/src/original/dics.original.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<!-- Custom fonts for this template -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script>
+		document.addEventListener('DOMContentLoaded', domReady);
+
+		// This is the NEW, correct function that accepts 'buttonElement'
+		function playVideo(sceneName, buttonElement) {
+			// --- 1. Update Button Styles ---
+
+			// Get all buttons in the grid
+			var allVideoButtons = document.querySelectorAll('.video-button-grid .image-nav-btn');
+
+			// Loop over them and remove the 'active-btn' class
+			allVideoButtons.forEach(function (btn) {
+				btn.classList.remove('active-btn');
+			});
+
+			// Add the 'active-btn' class to the button that was just clicked
+			buttonElement.classList.add('active-btn');
+
+
+			// --- 2. Play the Video (your existing code) ---
+			var video_player = document.getElementById("main_video_player");
+			var video_source = video_player.getElementsByTagName("source")[0];
+
+			video_source.src = "ibgs_files/video/" + sceneName + ".mp4";
+
+			video_player.load();
+			video_player.play();
+		}
+
+		// This is your Dics.js setup, which is correct
+		function domReady() {
+			// Slider 1 (View-Dependent)
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[0],
+				textPosition: 'top'
+			});
+
+			// Slider 2 (High-Frequency) - NEWLY ADDED
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[1],
+				textPosition: 'top'
+			});
+
+			// --- Shift all original initializations down by 1 ---
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[2], // was [1]
+				hideTexts: true,
+				textPosition: 'center'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[3] // was [2]
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[4], // was [3]
+				linesOrientation: 'vertical',
+				textPosition: 'left',
+				arrayBackgroundColorText: ['#000000', '#FFFFFF'],
+				arrayColorText: ['#FFFFFF', '#000000'],
+				linesColor: 'rgb(0,0,0)'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[5], // was [4]
+				linesOrientation: 'vertical',
+				textPosition: 'right'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[6], // was [5]
+				textPosition: 'bottom'
+			});
+
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[7], // was [6]
+				filters: ['blur(3px)', 'grayscale(1)', 'sepia(1)', 'saturate(3)']
+			});
+			new Dics({
+				container: document.querySelectorAll('.b-dics')[8], // was [7]
+				rotate: '45deg'
+			});
+
+		}
+	</script>
+	<script type="text/javascript">
+		var x_view = 0; // State for the view-dependent slider
+		var images_view_dependent = [
+			// View-dependent colors scenes
+			["ibgs_files/imgs/qualitative_results/bonsai/gt.jpg", "ibgs_files/imgs/qualitative_results/bonsai/3dgs.jpg", "ibgs_files/imgs/qualitative_results/bonsai/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/bonsai/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/lab/gt.jpg", "ibgs_files/imgs/qualitative_results/lab/3dgs.jpg", "ibgs_files/imgs/qualitative_results/lab/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/lab/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/guitars/gt.jpg", "ibgs_files/imgs/qualitative_results/guitars/3dgs.jpg", "ibgs_files/imgs/qualitative_results/guitars/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/guitars/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/counter/gt.jpg", "ibgs_files/imgs/qualitative_results/counter/3dgs.jpg", "ibgs_files/imgs/qualitative_results/counter/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/counter/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/cd/gt.jpg", "ibgs_files/imgs/qualitative_results/cd/3dgs.jpg", "ibgs_files/imgs/qualitative_results/cd/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/cd/mine.jpg"],
+		];
+
+		var x_high_freq = 0; // State for the high-frequency slider
+		var images_high_freq = [
+			// High frequency details scenes
+			["ibgs_files/imgs/qualitative_results/flowers/gt.jpg", "ibgs_files/imgs/qualitative_results/flowers/3dgs.jpg", "ibgs_files/imgs/qualitative_results/flowers/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/flowers/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/train/gt.jpg", "ibgs_files/imgs/qualitative_results/train/3dgs.jpg", "ibgs_files/imgs/qualitative_results/train/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/train/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/treehill/gt.jpg", "ibgs_files/imgs/qualitative_results/treehill/3dgs.jpg", "ibgs_files/imgs/qualitative_results/treehill/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/treehill/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/stump/gt.jpg", "ibgs_files/imgs/qualitative_results/stump/3dgs.jpg", "ibgs_files/imgs/qualitative_results/stump/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/stump/mine.jpg"],
+			["ibgs_files/imgs/qualitative_results/kitchen/gt.jpg", "ibgs_files/imgs/qualitative_results/kitchen/3dgs.jpg", "ibgs_files/imgs/qualitative_results/kitchen/supergaussian.jpg", "ibgs_files/imgs/qualitative_results/kitchen/mine.jpg"],
+		];
+
+		// --- Functions for View-Dependent Slider ---
+		function displayNextImages_view() {
+			x_view = (x_view === images_view_dependent.length - 1) ? 0 : x_view + 1;
+			document.getElementById("img1_view").src = images_view_dependent[x_view][0];
+			document.getElementById("img2_view").src = images_view_dependent[x_view][1];
+			document.getElementById("img3_view").src = images_view_dependent[x_view][2];
+			document.getElementById("img4_view").src = images_view_dependent[x_view][3];
+		}
+
+		function displayPreviousImages_view() {
+			x_view = (x_view <= 0) ? images_view_dependent.length - 1 : x_view - 1;
+			document.getElementById("img1_view").src = images_view_dependent[x_view][0];
+			document.getElementById("img2_view").src = images_view_dependent[x_view][1];
+			document.getElementById("img3_view").src = images_view_dependent[x_view][2];
+			document.getElementById("img4_view").src = images_view_dependent[x_view][3];
+		}
+
+		// --- Functions for High-Frequency Slider ---
+		function displayNextImages_high_freq() {
+			x_high_freq = (x_high_freq === images_high_freq.length - 1) ? 0 : x_high_freq + 1;
+			document.getElementById("img1_high_freq").src = images_high_freq[x_high_freq][0];
+			document.getElementById("img2_high_freq").src = images_high_freq[x_high_freq][1];
+			document.getElementById("img3_high_freq").src = images_high_freq[x_high_freq][2];
+			document.getElementById("img4_high_freq").src = images_high_freq[x_high_freq][3];
+		}
+
+		function displayPreviousImages_high_freq() {
+			x_high_freq = (x_high_freq <= 0) ? images_high_freq.length - 1 : x_high_freq - 1;
+			document.getElementById("img1_high_freq").src = images_high_freq[x_high_freq][0];
+			document.getElementById("img2_high_freq").src = images_high_freq[x_high_freq][1];
+			document.getElementById("img3_high_freq").src = images_high_freq[x_high_freq][2];
+			document.getElementById("img4_high_freq").src = images_high_freq[x_high_freq][3];
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<main role="main" class="container" , style="max-width: 900px;">
+		<h1 class="title is-2 publication-title">IBGS: Image-Based Gaussian Splatting</h1>
+		<!-- &#x1F6AB &#129306 &#128581 &#128581;&#8205;&#9792;&#65039 &#x1F6AB-->
+		<div class="col text-center">
+			<p class="authors">
+				Hoang Chuong Nguyen<sup>1</sup>,
+				<a href="https://wei-mao-2019.github.io/home/"> Wei Mao</a>,
+				<a href="https://alvarezlopezjosem.github.io/"> Jose M. Alvarez</a><sup>2</sup>,
+				<a href="https://users.cecs.anu.edu.au/~mliu/"> Miaomiao Liu</a><sup>1</sup><br>
+				<sup>1</sup>Australian National University,
+				<sup>2</sup>NVIDIA<br>
+				NeurIPS 2025
+			</p>
+		</div>
+		<div class="col text-center" , style="padding: 10px 0px;">
+			<a class="btn btn-dark btn-lg mx-2 rounded-pill" href="https://openreview.net/pdf?id=AZLj6ObEDF"
+				role="button">Paper</a>
+			<a class="btn btn-dark btn-lg mx-2 rounded-pill" href="https://github.com/HoangChuongNguyen/ibgs.git" role="button">Code</a>
+			<!-- <button type="button" class="btn btn-dark" disabled>Code</button> -->
+		</div>
+
+		<br>
+		<br> 
+		
+		<!-- <h2 class="title is-4">Appearance Component Visualizations</h2> -->
+		<div class="k-percent-breakout" style="--k-percent-width: 75vw;">
+			<div style="padding-bottom: 15px;">
+				<div class="video-wrapper">
+					<div class="video-titles-wrapper">
+						<div class="video-title-item">Base image \(\textbf{C}\)</div>
+						<div class="video-title-item">Color Residual \(\Delta \textbf{C}\)</div>
+						<div class="video-title-item">Final image \(\textbf{C}^{\text{final}}\)</div>
+					</div>
+					<video id="main_video_player" controls autoplay muted loop>
+						<source src="ibgs_files/video/guitar.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+			<div class="video-button-grid">
+				<button type="button" class="image-nav-btn active-btn" onclick="playVideo('guitar', this)">Guitar</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('lab', this)">Lab</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('train', this)">Train</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('cd', this)">CD</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('flowers', this)">Flowers</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('counter', this)">Counter</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('treehill', this)">Treehill</button>
+				<button type="button" class="image-nav-btn" onclick="playVideo('kitchen', this)">Kitchen</button>
+			</div>
+		</div>
+
+
+		<div class="full-width-wrapper">
+
+			<div class="container" style="max-width: 900px; margin: auto;">
+
+				<h2 class="title is-4">Abstract</h2>
+				<p class="text-justify">
+					3D Gaussian Splatting (3DGS) has recently emerged as a fast, high-quality method for novel view
+					synthesis
+					(NVS).
+					However, its use of low-degree spherical harmonics limits its ability to capture spatially varying
+					color and
+					view-dependent effects such as specular highlights.
+					Existing works augment Gaussians with either a global texture map, which struggles with complex
+					scenes, or
+					per-Gaussian texture maps, which introduces high storage overhead.
+					We propose Image-Based Gaussian Splatting, an efficient alternative that leverages high-resolution
+					source
+					images for fine details and view-specific color modeling.
+					Specifically, we model each pixel color as a combination of a base color from standard 3DGS
+					rendering and a
+					learned residual inferred from neighboring training images.
+					This promotes accurate surface alignment and enables rendering images of high-frequency details and
+					accurate
+					view-dependent effects.
+					Experiments on standard NVS benchmarks show that our method significantly outperforms prior Gaussian
+					Splatting approaches in rendering quality, without increasing the storage footprint.
+				</p>
+
+			</div>
+		</div>
+
+
+
+		<div class="container" style="max-width: 900px; margin: 0px;">
+			<h2 class="title is-4">Method Overview</h2>
+			<p class="text-justify">
+			<b>We propose a novel residual color prediction module, 
+					which produces a residual term capturing high-frequency details and view-dependent effects.</b>  The rendering process of IBGS can be summarized as: 
+			</p>
+			</b>
+			
+				<ul class="styled-list">
+				<li>Find intersections between a camera ray and close-to-surface Gaussians.</li>
+				<li>Project the intersections onto multiple training images, and obtain colors at the projected pixels.</li>
+				<li>The color residual prediction network takes the warped colors to predict color residuals.</li>
+				<li>The predicted residuals are then added to the base color to obtain the final pixel color.</li>
+				</ul>
+			<div style="padding: 20px 0px;" class="center">
+				<img src="ibgs_files/imgs/method.jpg" alt="Model Overview" class="center">
+			</div>
+
+
+		</div>
+
+		<div class="full-width-wrapper">
+			<h2 class="title is-4">Novel-view Synthesis</h2>
+			<div class="k-percent-breakout" style="--k-percent-width: 75vw;">
+				<div class="columns">
+					<div class="column">
+						<h3 class="title is-5" style="text-align: center; padding-top: 15px;">View-Dependent Colors</h3>
+<div class="polaroid">
+                    <div style="padding: 0px 0px;" , class="center">
+                        <div class="b-dics">
+                            <img id="img1_view" src="ibgs_files/imgs/qualitative_results/bonsai/gt.jpg" alt="Ground-truth">
+                            <img id="img2_view" src="ibgs_files/imgs/qualitative_results/bonsai/3dgs.jpg" alt="3DGS">
+                            <img id="img3_view" src="ibgs_files/imgs/qualitative_results/bonsai/supergaussian.jpg"
+                                alt="SuperGaussian">
+                            <img id="img4_view" src="ibgs_files/imgs/qualitative_results/bonsai/mine.jpg" alt="Ours">
+                        </div>
+                    </div>
+                </div> <div class="image-nav-container">
+                    <button type="button" class="image-nav-btn"
+                        onclick="displayPreviousImages_view()">&#10094;
+                        Previous</button>
+                    <button type="button" class="image-nav-btn" onclick="displayNextImages_view()">Next
+                        &#10095;</button>
+                </div>
+					</div>
+
+					<div class="column">
+						<h3 class="title is-5" style="text-align: center; padding-top: 15px;">High-Frequency Details
+						</h3>
+<div class="polaroid">
+                    <div style="padding: 0px 0px;" , class="center">
+                        <div class="b-dics">
+                            <img id="img1_high_freq" src="ibgs_files/imgs/qualitative_results/flowers/gt.jpg"
+                                alt="Ground-truth">
+                            <img id="img2_high_freq" src="ibgs_files/imgs/qualitative_results/flowers/3dgs.jpg" alt="3DGS">
+                            <img id="img3_high_freq" src="ibgs_files/imgs/qualitative_results/flowers/supergaussian.jpg"
+                                alt="SuperGaussian">
+                            <img id="img4_high_freq" src="ibgs_files/imgs/qualitative_results/flowers/mine.jpg" alt="Ours">
+                        </div>
+                    </div>
+                </div> <div class="image-nav-container">
+                    <button type="button" class="image-nav-btn"
+                        onclick="displayPreviousImages_high_freq()">&#10094;
+                        Previous</button>
+                    <button type="button" class="image-nav-btn" onclick="displayNextImages_high_freq()">Next
+                        &#10095;</button>
+                </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <h2 class="title is-4">Full Video</h2>
+		<iframe style='width:100%; height:500px;' src="To be added soon."
+			title="YouTube video player" frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+
+
+		<div class="container" style="max-width: 900px; margin: auto;">
+
+			<h2 class="title is-4">BibTeX</h2>
+			<code class="codebox" id="bibtex"><pre>
+@inproceedings{
+nguyen2025ibgs,
+title={{IBGS}: Image-Based Gaussian Splatting},
+author={Hoang Chuong Nguyen and Wei Mao and Jose M. Alvarez and Miaomiao Liu},
+booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+year={2025},
+url={https://openreview.net/forum?id=AZLj6ObEDF}
+}
+
+</pre></code>
+
+		</div>
+		<div class="columns is-centered">
+			<div class="column is-8">
+				<div class="content">
+					<p>
+						This website is created using the template provided by <a
+							href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+
+</html>
